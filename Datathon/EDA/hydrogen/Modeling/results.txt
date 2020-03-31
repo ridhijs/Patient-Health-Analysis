@@ -1,0 +1,52 @@
+
+from sklearn.ensemble import StackingClassifier
+
+clf = StackingClassifier(
+        n_jobs=-1
+        ,estimators=[ ('rf' , RandomForestClassifier(n_estimators=200))
+        , ('abc' , AdaBoostClassifier(n_estimators=200)) ])
+
+clf.fit(X_train , y_train)
+roc_auc_score(y_test , clf.predict_proba(X_test)[:,1])
+
+#0.89 on imputed_csv
+
+
+{'learning_rate': 'invscaling',
+ 'hidden_layer_sizes': (12,),
+ 'activation': 'relu'}
+#.88
+
+StackingClassifier(cv=None,
+                   estimators=[('nn',
+                                MLPClassifier(activation='relu', alpha=0.0001,
+                                              batch_size='auto', beta_1=0.9,
+                                              beta_2=0.999,
+                                              early_stopping=False,
+                                              epsilon=1e-08,
+                                              hidden_layer_sizes=(12,),
+                                              learning_rate='invscaling',
+                                              learning_rate_init=0.001,
+                                              max_fun=15000, max_iter=200,
+                                              momentum=0.9, n_iter_no_change=10,
+                                              nesterovs_momentum=True,
+                                              power_t=0.5, random_sta...
+                                                       min_samples_leaf=1,
+                                                       min_samples_split=2,
+                                                       min_weight_fraction_leaf=0.0,
+                                                       n_estimators=200,
+                                                       n_jobs=None,
+                                                       oob_score=False,
+                                                       random_state=None,
+                                                       verbose=0,
+                                                       warm_start=False)),
+                               ('abc',
+                                AdaBoostClassifier(algorithm='SAMME.R',
+                                                   base_estimator=None,
+                                                   learning_rate=1.0,
+                                                   n_estimators=200,
+                                                   random_state=None))],
+                   final_estimator=None, n_jobs=-1, passthrough=False,
+                   stack_method='auto', verbose=0)
+
+# stacking .8949
